@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EODD · Una oficina de IA para tu marca</title>
+<meta name="description" content="EODD junta tus ventas, anuncios, web y cuentas. Doce departamentos de IA los analizan, se reúnen y te entregan una hoja de ruta con tareas concretas. Para marcas de moda con tienda online.">
+<meta property="og:title" content="EODD · Una oficina de IA para tu marca">
+<meta property="og:description" content="Un equipo de IA que revisa tu marca cada día y te dice qué hacer.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="oficina_reposo.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070b1f%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2732%27 font-family=%27Arial%27 font-weight=%27900%27 text-anchor=%27middle%27 fill=%27%2335d6f0%27%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap">
+<style>
+/* Concepto: una oficina neón de noche. La oficina isométrica manda; el resto es texto sobrio alrededor de ella. */
+:root {
+  --bg: #070b1f;
+  --surface: #0d1531;
+  --surface-2: #131d42;
+  --line: #243061;
+  --fg: #e9edff;
+  --muted: #9ba7d8;
+  --cyan: #35d6f0;
+  --pink: #ff5fa8;
+  --amber: #ffcf4a;
+  --mint: #2fe6a6;
+  --on-accent: #04101f;
+  --glow: rgba(53, 214, 240, .28);
+  --font-display: "Syne", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f6ff; --surface: #ffffff; --surface-2: #e9eeff; --line: #c9d2f2; --fg: #0a1130; --muted: #4a5788;
+    --cyan: #0a7f97; --pink: #c42677; --amber: #8a6200; --mint: #0b7f5a; --on-accent: #ffffff; --glow: rgba(10, 127, 151, .18);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f4f6ff; --surface: #ffffff; --surface-2: #e9eeff; --line: #c9d2f2; --fg: #0a1130; --muted: #4a5788;
+  --cyan: #0a7f97; --pink: #c42677; --amber: #8a6200; --mint: #0b7f5a; --on-accent: #ffffff; --glow: rgba(10, 127, 151, .18);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1120px; margin-inline: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.08; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); }
+h3 { font-size: 1.15rem; letter-spacing: 0; }
+p { margin: 0; }
+.eyebrow + h2 { margin-top: .9rem; }
+.eyebrow { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+.lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); max-width: 60ch; }
+section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+
+/* barra superior */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; flex-wrap: wrap; }
+.marca { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: .02em; text-decoration: none; }
+.marca span { color: var(--cyan); }
+.top nav { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; }
+.top nav a { text-decoration: none; font-size: .95rem; color: var(--muted); }
+.top nav a:hover { color: var(--fg); }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.35rem; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1.5px solid var(--cyan);
+  background: var(--cyan); color: var(--on-accent); cursor: pointer; font-family: var(--font-body); font-size: .98rem; }
+.btn:hover { box-shadow: 0 0 28px -4px var(--glow); }
+.btn.sec { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.sec:hover { border-color: var(--cyan); }
+.top nav .btn { color: var(--on-accent); padding: .55rem 1.1rem; font-size: .9rem; }
+
+/* portada */
+.hero { padding-top: clamp(2rem, 5vw, 4rem); padding-bottom: 2rem; background: radial-gradient(900px 420px at 50% -10%, var(--glow), transparent 70%); }
+.hero h1 { max-width: 20ch; margin-top: 1rem; }
+.hero .lead { margin-top: 1.4rem; }
+.acciones { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 2rem; }
+.vitrina { margin-top: clamp(2rem, 5vw, 3.2rem); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #070b1f;
+  box-shadow: 0 30px 80px -40px var(--glow), 0 0 0 1px rgba(53, 214, 240, .08); }
+.vitrina img { display: block; width: 100%; height: auto; }
+.pie-img { font-size: .85rem; color: var(--muted); margin-top: .8rem; }
+
+/* qué recibes */
+.rejilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.8rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem); margin-top: 3rem; }
+.rejilla article { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+.rejilla h3 { margin-bottom: .55rem; }
+.pasos h3, .rejilla h3 { font-size: 1.05rem; }
+.rejilla p { color: var(--muted); max-width: 46ch; }
+.punto { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .55rem; vertical-align: .05em; }
+
+/* conversación */
+.texto-ancho { max-width: 780px; }
+.texto-ancho .lead { margin-top: 1.2rem; }
+.dos { margin-top: 2.5rem; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.chat { display: grid; gap: .7rem; margin-top: 1.6rem; }
+.msg { background: var(--surface); border: 1px solid var(--line); border-radius: 4px 14px 14px 14px; padding: .7rem 1rem; max-width: 52ch; }
+.msg b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: .76rem; letter-spacing: .04em; margin-bottom: .15rem; }
+.msg span { font-size: .93rem; color: var(--fg); }
+.ej { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: .9rem; }
+
+/* cómo empieza (una secuencia real) */
+.pasos { list-style: none; counter-reset: p; padding: 0; margin: 3rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); }
+.pasos li { counter-increment: p; position: relative; padding-top: 3.4rem; }
+.pasos li::before { content: counter(p); position: absolute; top: 0; left: 0; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--cyan); }
+.pasos h3 { margin-bottom: .5rem; }
+.pasos p { color: var(--muted); }
+
+/* conexiones */
+.fichas { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2.2rem; padding: 0; list-style: none; }
+.fichas li { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: .5rem 1.1rem; font-size: .95rem; }
+.fichas li.pronto { background: transparent; border-style: dashed; color: var(--muted); }
+.nota { color: var(--muted); font-size: .92rem; margin-top: 1.2rem; max-width: 62ch; }
+
+/* control */
+.control { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(1.6rem, 4vw, 3rem); }
+.control ul { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 2.5rem; }
+.control li strong { display: block; margin-bottom: .2rem; }
+.control li { color: var(--muted); }
+.control li strong { color: var(--fg); }
+
+/* planes */
+.planes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 3rem; align-items: stretch; }
+.plan { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 1.8rem 1.6rem; display: flex; flex-direction: column; gap: .9rem; min-width: 0; }
+.plan.dest { border-color: var(--cyan); box-shadow: 0 0 40px -18px var(--glow); background: var(--surface-2); }
+.plan .nom { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+.plan .precio { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; line-height: 1; }
+.plan .precio .eur { font-family: var(--font-body); font-weight: 600; font-size: 1.5rem; margin-left: .15rem; }
+.plan .precio small { font-family: var(--font-body); font-weight: 400; font-size: .95rem; color: var(--muted); }
+.plan p { color: var(--muted); font-size: .95rem; }
+.plan .btn { margin-top: auto; justify-content: center; }
+
+/* preguntas */
+details { border-top: 1px solid var(--line); padding-block: 1.1rem; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-family: var(--font-mono); color: var(--cyan); font-size: 1.3rem; line-height: 1; }
+details[open] summary::after { content: "–"; }
+details p { color: var(--muted); margin-top: .8rem; max-width: 64ch; }
+.faq { max-width: 780px; margin-top: 2.5rem; }
+
+/* contacto */
+.contacto { text-align: center; background: radial-gradient(700px 300px at 50% 100%, var(--glow), transparent 70%); }
+.contacto h2 { max-width: 20ch; margin-inline: auto; }
+.contacto .lead { margin: 1.2rem auto 0; }
+.correo { display: inline-flex; align-items: center; gap: .8rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
+.correo code { font-family: var(--font-mono); font-size: 1.05rem; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .6rem 1rem; user-select: all; }
+footer { padding-block: 2.5rem 3rem; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+@media (max-width: 820px) {
+  .rejilla, .dos, .pasos, .planes, .control ul { grid-template-columns: minmax(0, 1fr); }
+  .top nav a:not(.btn) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn:hover { box-shadow: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="marca" href="#inicio">EO<span>DD</span></a>
+    <nav aria-label="Principal">
+      <a href="#recibes">Qué recibes</a>
+      <a href="#empezar">Cómo empieza</a>
+      <a href="#conexiones">Conexiones</a>
+      <a href="#planes">Planes</a>
+      <a href="#preguntas">Preguntas</a>
+      <a class="btn" href="#contacto">Pedir una demo</a>
+    </nav>
+  </header>
+</div>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Para marcas de moda con tienda online</p>
+      <h1>Un equipo de IA que revisa tu marca cada día y te dice qué hacer.</h1>
+      <p class="lead">EODD junta tus ventas, tus anuncios, tu web y tus cuentas. Doce departamentos los analizan, se reúnen y te entregan una hoja de ruta con tareas concretas.</p>
+      <div class="acciones">
+        <a class="btn" href="#contacto">Pedir una demo</a>
+        <a class="btn sec" href="#recibes">Ver qué recibes</a>
+      </div>
+      <figure class="vitrina" style="margin-left:0;margin-right:0;margin-bottom:0">
+        <img src="oficina_reposo.jpg" alt="La oficina de EODD vista en isométrico: doce salas, una por departamento, con sus equipos en los puestos y la mesa de juntas en el centro." width="2400" height="1280">
+      </figure>
+      <p class="pie-img">La oficina de EODD: 12 departamentos y Dirección. Captura del producto.</p>
+    </div>
+  </section>
+
+  <section id="recibes">
+    <div class="wrap">
+      <p class="eyebrow">Qué recibes</p>
+      <h2>Menos paneles que mirar y más decisiones tomadas.</h2>
+      <div class="rejilla">
+        <article>
+          <h3><span class="punto" style="background:var(--cyan)"></span>Una reunión de dirección</h3>
+          <p>Finanzas, ventas, publicidad, producto, web y el resto entregan su informe. Dirección los lee y decide una hoja de ruta por plazos: esta semana, este mes, tres meses, un año y dos.</p>
+        </article>
+        <article>
+          <h3><span class="punto" style="background:var(--mint)"></span>Un tablero de tareas con memoria</h3>
+          <p>Cada decisión se convierte en una tarea con responsable, prioridad y forma de comprobarla. Tú la marcas como hecha o en curso, y EODD no la repite. Si una importante lleva siete días parada, te avisa.</p>
+        </article>
+        <article>
+          <h3><span class="punto" style="background:var(--amber)"></span>Un resumen cada mañana</h3>
+          <p>Por Telegram, a la hora que elijas: ventas de ayer frente a la media, productos que mejor funcionan, tallas a punto de agotarse, gasto en anuncios y el estado de tus tareas. Puede ir con nota de voz.</p>
+        </article>
+        <article>
+          <h3><span class="punto" style="background:var(--pink)"></span>Un asistente al que preguntar</h3>
+          <p>JARVIS conoce tus datos, tu hoja de ruta y tus tareas. Le preguntas por voz o escribiendo, y si le pides que marque una tarea como hecha, la marca.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="texto-ancho">
+        <p class="eyebrow">Se hablan entre ellos</p>
+        <h2>Los departamentos se pasan información y tú los escuchas.</h2>
+        <p class="lead">Producto avisa a Operaciones de que una talla se acaba. Publicidad propone pausar una campaña que no trae pedidos. En la oficina, pulsas «Escuchar la reunión» y ves cada mensaje salir de su sala, con una voz distinta por departamento.</p>
+      </div>
+      <div class="dos">
+        <figure class="vitrina" style="margin:0">
+          <img src="oficina_habla.jpg" alt="La oficina de EODD durante una reunión: un globo sobre la sala de Producto muestra su mensaje y una línea discontinua lo une con la sala de Operaciones." width="2400" height="1280" loading="lazy">
+        </figure>
+        <div>
+          <div class="chat" style="margin-top:0" aria-label="Ejemplo de conversación entre departamentos">
+            <div class="msg"><b style="color:var(--pink)">Publicidad → Dirección</b><span>Esta semana el gasto en anuncios no ha traído pedidos. Propongo pausar la campaña y revisar el píxel.</span></div>
+            <div class="msg"><b style="color:var(--amber)">Producto → Operaciones</b><span>Hay tallas a punto de agotarse en lo que más se vende. ¿Puedes confirmar plazos de reposición?</span></div>
+            <div class="msg"><b style="color:var(--cyan)">Dirección → Todos</b><span>Decidido: esta semana se prioriza reponer stock y revisar el anuncio antes de gastar más.</span></div>
+          </div>
+          <p class="ej">Ejemplo ilustrativo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="empezar">
+    <div class="wrap">
+      <p class="eyebrow">Cómo empieza</p>
+      <h2>Conectas tus datos y EODD se pone a trabajar.</h2>
+      <ol class="pasos">
+        <li>
+          <h3>Conectas tus fuentes</h3>
+          <p>Tu tienda, tus anuncios, tu web y tu Excel de cuentas. Cada conexión tiene su guía y es de solo lectura.</p>
+        </li>
+        <li>
+          <h3>Celebra la primera reunión</h3>
+          <p>Ves a cada equipo trabajar en la oficina y recibes la primera hoja de ruta con sus tareas.</p>
+        </li>
+        <li>
+          <h3>Cada día, un resumen</h3>
+          <p>Te llega a primera hora. Entre reuniones, marcas tareas y preguntas lo que quieras a JARVIS.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="conexiones">
+    <div class="wrap">
+      <p class="eyebrow">Conexiones</p>
+      <h2>Se conecta con lo que ya usas.</h2>
+      <ul class="fichas">
+        <li>Shopify</li><li>Meta Ads</li><li>Google Analytics</li><li>Google Merchant</li><li>Klaviyo</li><li>Instagram</li><li>Excel de cuentas</li>
+        <li class="pronto">Google Ads · próximamente</li>
+      </ul>
+      <p class="nota">EODD lee fechas, importes, productos y estadísticas. No lee nombres de clientes ni documentos de identidad de tu contabilidad.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="control">
+        <p class="eyebrow">Tú mandas</p>
+        <h2>EODD aconseja. Las decisiones siguen siendo tuyas.</h2>
+        <ul>
+          <li><strong>Solo lectura</strong>Las conexiones solo leen datos. EODD no cambia precios, no toca tus campañas y no publica nada.</li>
+          <li><strong>No gasta en anuncios</strong>No tiene permiso para mover tu presupuesto publicitario.</li>
+          <li><strong>Un panel solo tuyo</strong>Cada marca tiene su propia copia de EODD, protegida con contraseña. Nada se mezcla con otras marcas.</li>
+          <li><strong>Tú eliges el ritmo</strong>Convocas la reunión cuando quieres y cada plan tiene un consumo mensual incluido, con aviso antes de agotarlo.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="planes">
+    <div class="wrap">
+      <p class="eyebrow">Planes</p>
+      <h2>Una cuota al mes, con la IA incluida.</h2>
+      <p class="lead" style="margin-top:1.2rem">Cada plan trae un consumo de IA mensual. Te avisamos al llegar al 80 % y, si se agota, las reuniones se reanudan el mes siguiente o amplías el plan.</p>
+      <div class="planes">
+        <div class="plan">
+          <span class="nom">Básico</span>
+          <div class="precio">39<span class="eur">€</span><small> /mes + IVA</small></div>
+          <p>Resumen diario, tablero de tareas, panel completo y una o dos reuniones al mes en modo ahorro.</p>
+          <a class="btn sec" href="#contacto">Pedir una demo</a>
+        </div>
+        <div class="plan dest">
+          <span class="nom">Estándar</span>
+          <div class="precio">59<span class="eur">€</span><small> /mes + IVA</small></div>
+          <p>Todo lo del Básico y una reunión completa cada semana, o varias en modo ahorro.</p>
+          <a class="btn" href="#contacto">Pedir una demo</a>
+        </div>
+        <div class="plan">
+          <span class="nom">Pro</span>
+          <div class="precio">99<span class="eur">€</span><small> /mes + IVA</small></div>
+          <p>Todo lo del Estándar, con más reuniones y más conversación con JARVIS.</p>
+          <a class="btn sec" href="#contacto">Pedir una demo</a>
+        </div>
+      </div>
+      <p class="nota">Los servicios opcionales de terceros, como llamadas telefónicas o creación de fotos y vídeo, se pagan aparte. Precios de lanzamiento, sin IVA. El IVA se suma en el momento de pagar.</p>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <div class="wrap">
+      <p class="eyebrow">Preguntas</p>
+      <h2>Lo que suelen preguntar primero.</h2>
+      <div class="faq">
+        <details><summary>¿Para qué tipo de marca está pensado?</summary>
+          <p>Hoy, para marcas de moda y producto físico con tienda online en Shopify. Los departamentos y los especialistas están escritos para ese tipo de negocio.</p></details>
+        <details><summary>¿Qué necesito para empezar?</summary>
+          <p>Acceso de lectura a tu tienda y a las herramientas que ya uses: Meta Ads, Google Analytics, Google Merchant, Klaviyo o Instagram. Si llevas las cuentas en un Excel, tenemos una plantilla. Un móvil con Telegram para el resumen diario. Te acompañamos en el alta.</p></details>
+        <details><summary>¿Puede cambiar mis campañas o mis precios?</summary>
+          <p>No. Todas las conexiones son de solo lectura. EODD te dice qué haría y tú decides.</p></details>
+        <details><summary>¿Los resultados están garantizados?</summary>
+          <p>No. EODD analiza tus datos y propone tareas concretas, pero lo que ocurra al ejecutarlas depende de tu negocio. Por eso cada tarea lleva una forma de comprobar si ha funcionado.</p></details>
+        <details><summary>¿Qué pasa si no tengo datos de todo?</summary>
+          <p>Funciona con lo que conectes. Cada informe dice qué datos le faltan para trabajar mejor, en lugar de rellenar con suposiciones.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contacto">
+    <div class="wrap">
+      <p class="eyebrow">Demo</p>
+      <h2>Pide una demo con tu propia marca.</h2>
+      <p class="lead">Te enseñamos EODD funcionando con tus datos y resolvemos tus dudas.</p>
+      <div class="correo">
+        <code id="correo">mvp033330@gmail.com</code>
+        <button class="btn sec" type="button" id="copiar">Copiar</button>
+        <a class="btn" href="mailto:mvp033330@gmail.com?subject=Quiero%20una%20demo%20de%20EODD">Escribir ahora</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>EODD</span>
+    <span>Una oficina de IA para tu marca.</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var b = document.getElementById('copiar'), c = document.getElementById('correo');
+  if (!b || !c) return;
+  b.addEventListener('click', function () {
+    function marcar() {
+      var r = document.createRange(); r.selectNodeContents(c);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    var ok = function () { b.textContent = 'Copiado'; setTimeout(function () { b.textContent = 'Copiar'; }, 1800); };
+    try {
+      navigator.clipboard.writeText(c.textContent.trim()).then(ok, function () { marcar(); b.textContent = 'Selecciónalo y copia'; });
+    } catch (e) { marcar(); b.textContent = 'Selecciónalo y copia'; }
+  });
+})();
+</script>
+</body>
+</html>
