@@ -1,0 +1,25 @@
+:root{--bg:#070b1f;--surface:#0d1531;--line:#243061;--fg:#e9edff;--muted:#9ba7d8;--cyan:#35d6f0;--warn-bg:#3a2f08;--warn-fg:#ffe08a;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f6ff;--surface:#fff;--line:#c9d2f2;--fg:#0a1130;--muted:#4a5788;--cyan:#0a7f97;--warn-bg:#fff2c2;--warn-fg:#5c4300;color-scheme:light}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.7;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.pag{max-width:780px;margin:0 auto;padding-block:clamp(1.5rem,5vw,3rem) 4rem}
+a{color:var(--cyan)}
+.volver{display:inline-block;margin-bottom:2rem;text-decoration:none;font-size:.95rem}
+.marca{font-family:"Syne","Trebuchet MS",system-ui,sans-serif;font-weight:800;font-size:1.3rem;text-decoration:none;color:var(--fg);letter-spacing:.02em}
+.marca span{color:var(--cyan)}
+h1{font-family:"Syne","Trebuchet MS",system-ui,sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.1;margin:1.4rem 0 .4rem;text-wrap:balance}
+h2{font-family:"Syne","Trebuchet MS",system-ui,sans-serif;font-weight:700;font-size:1.25rem;margin:2.4rem 0 .6rem}
+p,li{color:var(--fg)}
+p{margin:.7rem 0}
+ul{padding-left:1.3rem}
+li{margin:.35rem 0}
+.act{color:var(--muted);font-size:.9rem;margin:0 0 1.5rem}
+.aviso{background:var(--warn-bg);color:var(--warn-fg);border-radius:12px;padding:.9rem 1.1rem;font-size:.95rem;margin:1.2rem 0}
+.aviso p{color:inherit;margin:.3rem 0}
+mark.pend{background:var(--warn-bg);color:var(--warn-fg);padding:.05em .4em;border-radius:6px;font-weight:500}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+td,th{border:1px solid var(--line);padding:.6rem .8rem;text-align:left;vertical-align:top}
+th{width:34%;color:var(--muted);font-weight:500}
+.tabla{overflow-x:auto}
+nav.legal{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.92rem}
+nav.legal a{color:var(--muted)}

@@ -8,11 +8,11 @@
 <meta property="og:title" content="EODD · Una oficina de IA para tu marca">
 <meta property="og:description" content="Un equipo de IA que revisa tu marca cada día y te dice qué hacer.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="oficina_reposo.jpg">
+<meta property="og:image" content="https://eodd.app/oficina_reposo.jpg">
+<meta property="og:url" content="https://eodd.app/">
+<link rel="canonical" href="https://eodd.app/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070b1f%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2732%27 font-family=%27Arial%27 font-weight=%27900%27 text-anchor=%27middle%27 fill=%27%2335d6f0%27%3EE%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap">
+<link rel="stylesheet" href="fuentes.css">
 <style>
 /* Concepto: una oficina neón de noche. La oficina isométrica manda; el resto es texto sobrio alrededor de ella. */
 :root {
@@ -151,6 +151,9 @@ details p { color: var(--muted); margin-top: .8rem; max-width: 64ch; }
 .contacto .lead { margin: 1.2rem auto 0; }
 .correo { display: inline-flex; align-items: center; gap: .8rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
 .correo code { font-family: var(--font-mono); font-size: 1.05rem; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .6rem 1rem; user-select: all; }
+.legal-links { display: flex; gap: 1.3rem; flex-wrap: wrap; }
+.legal-links a { color: var(--muted); text-decoration: none; }
+.legal-links a:hover { color: var(--fg); text-decoration: underline; }
 footer { padding-block: 2.5rem 3rem; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
 @media (max-width: 820px) {
@@ -353,8 +356,8 @@ footer { padding-block: 2.5rem 3rem; color: var(--muted); font-size: .88rem; bor
 
 <div class="wrap">
   <footer>
-    <span>EODD</span>
-    <span>Una oficina de IA para tu marca.</span>
+    <span>EODD · eodd.app</span>
+    <nav class="legal-links" aria-label="Textos legales"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a></nav>
   </footer>
 </div>
 
